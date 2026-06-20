@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+> [!NOTE]
+> This project is currently in active development.
+
+<div align="center">
+
+  <img src="./public/logo.png" alt="PulsePlay Logo" width="150" />
+
+  <h1>Pulse Play</h1>
+  
+  <p>A <b>1st-year academic</b> web project exploring applied data science, algorithmic recommendations, and media routing.</p>
+
+  <img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+
+</div>
+
+<br />
+
+<!-- TODO: Add project demo GIF here once the UI is fully built.
+![PulsePlay CMS Demo](./docs/assets/my-demo.gif)
+-->
+
+> [!WARNING]
+> **Disclaimer:** This repository contains **PulsePlay**, a personal web development project built strictly for self-learning and skill-building purposes. This platform is not intended for public commercial deployment or copyright infringement.
+
+## Project Overview
+
+PulsePlay is an advanced media discovery portal. The core focus of this project is applying data science and algorithmic concepts to web development.
+
+Instead of dealing with heavy native video hosting, PulsePlay acts as an intelligent routing hub. The application gives users two primary options for any media title—navigating to external watch streams or utilizing external download links—while utilizing backend algorithms to personalize the discovery experience.
+
+## Core Features
+
+- **Dual Action Architecture:** Seamless UI/UX separating external streaming routes and direct external downloading links.
+- **Algorithmic Recommendations:** Utilizes user interaction logs (Watch vs. Download routing) and media metadata to drive Content-Based and Collaborative Filtering algorithms.
+- **Advanced Text Search:** Powered by MongoDB Text Indexes for typo-tolerant, weighted semantic search across titles, plots, and metadata tags.
+- **Custom CMS:** A backend Content Management System for uploading media metadata, extracting tags, and managing the external routing links.
+
+## Tech Stack
+
+- **Frontend:** Next.js (App Router), React, Tailwind CSS
+- **Backend:** Next.js API Routes (Node.js)
+- **Database:** MongoDB (NoSQL)
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to run the PulsePlay environment locally on your machine.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**1. Clone the repository**
+
+```
+git clone https://github.com/Abhisek-Dash-Official/PulsePlay.git
+cd pulseplay
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**2. Install dependencies**
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**3. Set up environment variables**
 
-## Learn More
+Create a `.env.local` file in the root directory and add your connection string:
 
-To learn more about Next.js, take a look at the following resources:
+```
+MONGODB_URI=your_mongodb_connection_string_here
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**4. Run the development server**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+npm run dev
+```
 
-## Deploy on Vercel
+Open http://localhost:3000 with your browser to see the result.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Roadmap
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Here is the planned phased development progression for PulsePlay:
+
+- [x] **Phase 1:** Project Initialization & Architecture
+- [ ] **Phase 2:** Admin CMS Development
+- [ ] **Phase 3:** User Authentication System
+- [ ] **Phase 4:** Global UI & Home Page
+- [ ] **Phase 5:** Media Details Hub
+- [ ] **Phase 6:** Search & Discovery
+- [ ] **Phase 7:** User Interactions (Watchlist & Favorites)
+- [ ] **Phase 8:** Algorithmic Recommendation Engine
+
+## Documentation
+
+For a deep dive into the backend architecture, please refer to the project documentation:
+
+- [Database Schema (NoSQL)](./docs/database-schema.md)
+
+- [API Routes & Endpoints](./docs/api-routes.md)

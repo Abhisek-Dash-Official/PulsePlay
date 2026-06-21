@@ -10,6 +10,7 @@ This document outlines the NoSQL collections and data structures used in the Pul
 
 Stores metadata for all movies and web series, including nested arrays for multiple download links to avoid complex SQL JOINs.
 
+```
 {
 "\_id": "ObjectId",
 "title": "String",
@@ -24,12 +25,12 @@ Stores metadata for all movies and web series, including nested arrays for multi
 "release_date": "ISODate",
 "watch_link": "String (Embedded streaming URL)",
 "download_links": [
-{
-"resolution_label": "String (e.g., '1080p Web-DL')",
-"file_size": "String (e.g., '1.5 GB' or '800 MB')"
-"external_url": "String",
-}
-],
+    {
+    "resolution_label": "String (e.g., '1080p Web-DL')",
+    "file_size": "String (e.g., '1.5 GB' or '800 MB')"
+    "external_url": "String",
+    }
+    ],
 "genres": ["String"],
 "cast": ["String"],
 "director": "String",
@@ -37,10 +38,13 @@ Stores metadata for all movies and web series, including nested arrays for multi
 "created_at": "ISODate"
 }
 
+```
+
 ### 2. users Collection
 
 Manages user profiles, tracking explicit intent markers for data analysis.
 
+```
 {
 "\_id": "ObjectId",
 "username": "String",
@@ -53,10 +57,13 @@ Manages user profiles, tracking explicit intent markers for data analysis.
 "created_at": "ISODate"
 }
 
+```
+
 ### 3. user_actions Collection
 
 An immutable log tracking user engagement ('watch' or 'download') to feed the Collaborative Filtering recommendation engine.
 
+```
 {
 "\_id": "ObjectId",
 "user_id": "ObjectId (References users.\_id)",
@@ -64,6 +71,8 @@ An immutable log tracking user engagement ('watch' or 'download') to feed the Co
 "action_type": "String ('watch' | 'download')",
 "timestamp": "ISODate"
 }
+
+```
 
 ---
 

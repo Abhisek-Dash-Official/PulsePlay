@@ -67,6 +67,7 @@ Create a `.env.local` file in the root directory and add your connection string:
 
 ```
 MONGODB_URI=your_mongodb_connection_string_here
+
 ```
 
 **4. Run the development server**
@@ -83,13 +84,13 @@ Here is the planned phased development progression for PulsePlay:
 
 - [x] **Phase 1:** Project Initialization & Architecture
 - [x] **Phase 2:** Database Architecture (MongoDB Connection & Schema Models)
-- [ ] **Phase 3:** Admin CMS Development
-- [ ] **Phase 4:** User Authentication System
-- [ ] **Phase 5:** Global UI & Home Page
-- [ ] **Phase 6:** Media Details Hub
-- [ ] **Phase 7:** Advanced Text Search Integration (MongoDB)
+- [x] **Phase 3:** Advanced Text Search Integration (MongoDB)
+- [ ] **Phase 4:** Admin CMS Development
+- [ ] **Phase 5:** User Authentication System
+- [ ] **Phase 6:** Global UI & Home Page
+- [ ] **Phase 7:** Media Details Hub
 - [ ] **Phase 8:** User Interactions (Watchlist & Favorites)
-- [ ] **Phase 9:** Dynamic Filtering & Sorting Feature
+- [ ] **Phase 9:** Search and Dynamic Filtering/Sorting Feature
 - [ ] **Phase 10:** Algorithmic Recommendation Engine
 
 ## Documentation

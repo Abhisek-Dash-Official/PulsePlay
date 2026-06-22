@@ -1,7 +1,7 @@
 import { Flame, Star, Sparkles, Home, Film, Clapperboard, Tv, ListVideo, Heart, LayoutGrid, LayoutDashboard, Video, Users, Settings, Compass, Eye, Skull, Wand2, BookOpen, Sword, History, Search, Rocket, Fingerprint } from "lucide-react";
 
 export const SITE_NAME = "PulsePlay";
-export const SITE_DESCRIPTION = "Discover blockbuster movies, trending shows, and personalized recommendations. Watch online or download directly with PulsePlay.";
+export const SITE_DESCRIPTION = "Discover blockbuster movies, new releases, and personalized recommendations. Watch online or download directly with PulsePlay.";
 export const SITE_LOGO_URL = "/logo.png";
 export const SITE_KEYWORDS = [
     SITE_NAME,
@@ -17,11 +17,6 @@ export const SITE_KEYWORDS = [
     "entertainment portal",
     "direct download movies"
 ];
-
-// Pagination & Display limits
-export const MOVIES_PER_PAGE = 20;
-export const HERO_BANNER_LIMIT = 5;
-export const ROW_CONTENT_LIMIT = 15; // (Trending, Top Rated, Recommended, Genre) sections on homepage
 
 // Watchlist & Favourites limits
 export const MAX_WATCHLIST_SIZE = 25;
@@ -48,11 +43,9 @@ export const GENRES = [ // If name is changed, update the genreImgUrl() function
     { id: "romance", name: "Romance", icon: Heart }
 ];
 
-export const HOME_SECTIONS = [ // If id is changed, update the api route.
-    { id: "trending", title: "Trending Now", icon: Flame },
+export const BROWSE_SECTIONS = [ // id is related to server-config.js's SECTION_CONFIG keys. If changed, update there as well.
+    { id: "new-releases", title: "New Releases", icon: Flame },
     { id: "top-rated", title: "Top Rated", icon: Star },
-    { id: "recommended", title: "Recommended For You", icon: Sparkles },
-    { id: "genre", title: "Browse by Genre", icon: LayoutGrid },
 ];
 
 // Helper Functions

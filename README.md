@@ -67,6 +67,7 @@ Create a `.env.local` file in the root directory and add your connection string:
 
 ```
 MONGODB_URI=your_mongodb_connection_string_here
+JWT_SECRET=your_jwt_password_here
 
 ```
 

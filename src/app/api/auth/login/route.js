@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { verifyUserCredentials } from '@/lib/auth';
+import { verifyUserCredentials } from '@/lib/dbQueries';
 import jwt from 'jsonwebtoken';
 
 export async function POST(request) {
@@ -7,34 +7,25 @@ export async function POST(request) {
         const { email, password } = await request.json();
 
         const result = await verifyUserCredentials(email, password);
-
         if (!result.success) {
             return NextResponse.json({ success: false, error: result.error }, { status: 401 });
         }
 
-        if (result.userData.role !== 'admin') {
-            return NextResponse.json({
-                success: false,
-                error: "Access Denied: You are not an admin"
-            }, { status: 403 });
-        }
-
+        // Generate JWT Token
         const token = jwt.sign(
-            { userId: result.userData.id, role: 'admin' },
+            { userId: result.userData.id, role: result.userData.role },
             process.env.JWT_SECRET,
-            { expiresIn: '1h' }
+            { expiresIn: '7d' }
         );
 
-        const response = NextResponse.json({
-            success: true,
-            message: "Admin authenticated successfully"
-        });
+        const response = NextResponse.json({ success: true, user: result.userData });
 
-        response.cookies.set('admin_token', token, {
+        // Set HttpOnly Cookie
+        response.cookies.set('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
-            maxAge: 3600 // 1 hour
+            maxAge: 7 * 24 * 60 * 60
         });
 
         return response;

@@ -3,6 +3,8 @@ import { Media } from '@/models/Media';
 import { User } from '@/models/User';
 import { UserAction } from '@/models/UserAction';
 import bcrypt from 'bcryptjs';
+import { jwtVerify } from 'jose';
+import { MAX_WATCHLIST_SIZE, MAX_FAVOURITES_SIZE } from '@/lib/server-config';
 
 const models = {
   "medias": Media,
@@ -59,4 +61,54 @@ export async function verifyUserCredentials(email, plainPassword) {
     role: user.role
   };
   return { success: true, userData };
+}
+
+// Function to get UserID from token
+export async function getUserIdFromToken(token) {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  const { payload } = await jwtVerify(token, secret);
+  return payload.userId;
+}
+
+// Function for generic updates (Watchlist, Favorites)
+export async function updateUserArray(userId, field, mediaId) {
+  await connectToDatabase();
+
+  const user = await User.findById(userId).select(field);
+
+  const limit = (field === 'watchlist') ? MAX_WATCHLIST_SIZE : MAX_FAVOURITES_SIZE;
+
+  if (user[field].includes(mediaId)) {
+    throw new Error('ALREADY_EXISTS');
+  }
+
+  if (user[field].length >= limit) {
+    throw new Error('LIMIT_EXCEEDED');
+  }
+
+  return await User.findByIdAndUpdate(
+    userId,
+    { $addToSet: { [field]: mediaId } },
+    { new: true }
+  );
+}
+
+// Function to get paginated user lists (Watchlist, Favorites)
+export async function getUserList(userId, field, page = 1, limit = 10) {
+  await connectToDatabase();
+  const skip = (page - 1) * limit;
+
+  // field will be 'watchlist' or 'favorites'
+  const user = await User.findById(userId)
+    .populate({
+      path: field,
+      options: { limit: limit + 1, skip: skip }
+    })
+    .lean();
+
+  const items = user[field] || [];
+  const hasNext = items.length > limit;
+  const data = hasNext ? items.slice(0, limit) : items;
+
+  return { data, count: items.length, hasNext };
 }

@@ -21,7 +21,7 @@ export async function POST(request) {
         const response = NextResponse.json({ success: true, user: result.userData });
 
         // Set HttpOnly Cookie
-        response.cookies.set('token', token, {
+        response.cookies.set('user_token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',

@@ -18,10 +18,6 @@ export const SITE_KEYWORDS = [
     "direct download movies"
 ];
 
-// Watchlist & Favourites limits
-export const MAX_WATCHLIST_SIZE = 25;
-export const MAX_FAVOURITES_SIZE = 25;
-
 // UI related
 export const GENRES = [ // If name is changed, update the genreImgUrl() function in this file accordingly
     { id: "adventure", name: "Adventure", icon: Compass },

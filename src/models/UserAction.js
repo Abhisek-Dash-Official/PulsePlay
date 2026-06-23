@@ -8,6 +8,6 @@ const UserActionSchema = new mongoose.Schema({
 });
 
 UserActionSchema.index({ user_id: 1, action_type: 1, timestamp: -1 });
-// UserActionSchema.index({ media_id: 1 });
+UserActionSchema.index({ media_id: 1 });
 
 export const UserAction = mongoose.models.UserAction || mongoose.model('UserAction', UserActionSchema);

@@ -1,6 +1,12 @@
 // Pagination & Display limits
 export const MOVIES_PER_PAGE = 20;
 export const ROW_CONTENT_LIMIT = 15; // (New Releases, Top Rated, Recommended, Genre) sections on homepage
+export const WATCHLIST_PAGE_LIMIT = 10; // Number of items per page in watchlist and favorites
+export const FAVORITES_PAGE_LIMIT = 10; // Number of items per page in watchlist and favorites
+
+// Watchlist & Favourites limits
+export const MAX_WATCHLIST_SIZE = 25;
+export const MAX_FAVOURITES_SIZE = 25;
 
 // NOTE: keys are related to constants.js's BROWSE_SECTIONS ids. If changed, update there as well.
 export const SECTION_CONFIG = {

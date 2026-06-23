@@ -114,3 +114,9 @@ export async function getUserList(userId, field, page = 1, limit = 10) {
 
   return { data, count: data.length, hasNext };
 }
+
+// Get User Profile by ID
+export async function getUserProfile(userId) {
+  await connectToDatabase();
+  return await User.findById(userId).select('-password_hash').lean();
+}

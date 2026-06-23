@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { verifyUserCredentials } from '@/lib/auth';
-import jwt from 'jsonwebtoken';
+import { SignJWT } from 'jose';
 
 export async function POST(request) {
     try {
@@ -19,15 +19,21 @@ export async function POST(request) {
             }, { status: 403 });
         }
 
-        const token = jwt.sign(
-            { userId: result.userData.id, role: 'admin' },
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
+        const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+        const token = await new SignJWT({ userId: result.userData.id, role: 'admin' })
+            .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
+            .setExpirationTime('1h') // Admin token shorter expiry
+            .sign(secret);
 
         const response = NextResponse.json({
             success: true,
-            message: "Admin authenticated successfully"
+            message: "Admin authenticated successfully",
+            admin: {
+                username: result.userData.username,
+                avatar_id: result.userData.avatar_id,
+                role: result.userData.role
+            }
         });
 
         response.cookies.set('admin_token', token, {

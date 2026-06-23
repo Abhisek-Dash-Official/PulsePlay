@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { verifyUserCredentials } from '@/lib/dbQueries';
-import jwt from 'jsonwebtoken';
+import { SignJWT } from 'jose';
 
 export async function POST(request) {
     try {
@@ -11,12 +11,13 @@ export async function POST(request) {
             return NextResponse.json({ success: false, error: result.error }, { status: 401 });
         }
 
-        // Generate JWT Token
-        const token = jwt.sign(
-            { userId: result.userData.id, role: result.userData.role },
-            process.env.JWT_SECRET,
-            { expiresIn: '7d' }
-        );
+        // Generate Token
+        const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+        const token = await new SignJWT({ userId: result.userData.id, role: result.userData.role })
+            .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
+            .setExpirationTime('7d')
+            .sign(secret);
 
         const response = NextResponse.json({ success: true, user: result.userData });
 

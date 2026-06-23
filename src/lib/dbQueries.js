@@ -58,7 +58,9 @@ export async function verifyUserCredentials(email, plainPassword) {
     username: user.username,
     email: user.email,
     avatar_id: user.avatar_id,
-    role: user.role
+    role: user.role,
+    watchlist: user.watchlist,
+    favorites: user.favorites
   };
   return { success: true, userData };
 }
@@ -110,5 +112,5 @@ export async function getUserList(userId, field, page = 1, limit = 10) {
   const hasNext = items.length > limit;
   const data = hasNext ? items.slice(0, limit) : items;
 
-  return { data, count: items.length, hasNext };
+  return { data, count: data.length, hasNext };
 }

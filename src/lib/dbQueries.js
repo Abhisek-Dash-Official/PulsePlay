@@ -120,3 +120,29 @@ export async function getUserProfile(userId) {
   await connectToDatabase();
   return await User.findById(userId).select('-password_hash').lean();
 }
+
+// Delete a movie by ID
+export async function deleteMovie(id) {
+  await connectToDatabase();
+  return await Media.findByIdAndDelete(id);
+}
+
+// Edit a movie by ID
+export async function updateMovie(id, updateData) {
+  await connectToDatabase();
+
+  const updated = await Media.findByIdAndUpdate(
+    id,
+    { $set: updateData },
+    { new: true, runValidators: true }
+  );
+
+  return updated;
+}
+
+// Create a new movie
+export async function createMovie(movieData) {
+  await connectToDatabase();
+  const newMovie = new Media(movieData);
+  return await newMovie.save();
+}

@@ -10,7 +10,4 @@ const UserSchema = new mongoose.Schema({
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Media' }],
 }, { timestamps: { createdAt: 'created_at', updatedAt: false } });
 
-UserSchema.index({ email: 1 }, { unique: true });
-UserSchema.index({ username: 1 }, { unique: true });
-
 export const User = mongoose.models.User || mongoose.model('User', UserSchema, 'users');

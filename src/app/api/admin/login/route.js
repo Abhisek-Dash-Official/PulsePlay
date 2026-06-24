@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { verifyUserCredentials } from '@/lib/auth';
+import { verifyUserCredentials } from '@/lib/dbQueries';
 import { SignJWT } from 'jose';
 
 export async function POST(request) {

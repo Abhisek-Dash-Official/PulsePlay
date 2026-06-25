@@ -68,7 +68,9 @@ export default function AdminSidebar() {
           const Icon = link.icon;
           // Check if current route matches the link
           const isActive =
-            pathname === link.href || pathname.startsWith(`${link.href}/`);
+            link.href === "/admin"
+              ? pathname === "/admin" // For Dashboard
+              : pathname === link.href || pathname.startsWith(`${link.href}/`); // For other links
 
           return (
             <Link

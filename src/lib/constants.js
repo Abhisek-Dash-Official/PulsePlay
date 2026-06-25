@@ -1,4 +1,4 @@
-import { Flame, Star, Sparkles, Home, Film, Clapperboard, Tv, ListVideo, Heart, LayoutGrid, LayoutDashboard, Video, Users, Settings, Compass, Eye, Skull, Wand2, BookOpen, Sword, History, Search, Rocket, Fingerprint } from "lucide-react";
+import { Flame, Star, Sparkles, Home, Film, Clapperboard, Tv, ListVideo, Heart, LayoutGrid, LayoutDashboard, Video, Users, Settings, Compass, Eye, Skull, Wand2, BookOpen, Sword, History, Search, Rocket, Fingerprint, Globe } from "lucide-react";
 
 export const SITE_NAME = "PulsePlay";
 export const SITE_DESCRIPTION = "Discover blockbuster movies, new releases, and personalized recommendations. Watch online or download directly with PulsePlay.";
@@ -53,7 +53,7 @@ export const genreImgUrl = (genreName) => `/images/genres/${genreName.toLowerCas
 export const NAV_LINKS = [
     { name: "Home", href: "/", icon: Home },
     { name: "Bollywood", href: "/bollywood", icon: Clapperboard },
-    { name: "Hollywood", href: "/hollywood", icon: Clapperboard },
+    { name: "Hollywood", href: "/hollywood", icon: Globe },
     { name: "Movies", href: "/movies", icon: Film },
     { name: "Series", href: "/series", icon: Tv },
     { name: "Watchlist", href: "/watchlist", icon: ListVideo },

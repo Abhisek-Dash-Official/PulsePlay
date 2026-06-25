@@ -14,6 +14,19 @@
   <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
   <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
 
+  <br />
+
+  <img src="https://img.shields.io/badge/Zustand-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="Zustand" />
+  <img src="https://img.shields.io/badge/Lucide_React-%23F26B3A.svg?style=for-the-badge&logo=lucide&logoColor=white" alt="Lucide React" />
+  <img src="https://img.shields.io/badge/React_Toastify-%23121212.svg?style=for-the-badge&logo=react&logoColor=%234CAF50" alt="React Toastify" />
+
+  <br />
+
+  <img src="https://img.shields.io/badge/Node.js-%2343853D.svg?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Mongoose-%23880000.svg?style=for-the-badge&logo=mongoose&logoColor=white" alt="Mongoose" />
+  <img src="https://img.shields.io/badge/bcryptjs-%23cb3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="bcryptjs" />
+  <img src="https://img.shields.io/badge/jose_(JWT)-%23000000.svg?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="jose JWT" />
+
 </div>
 
 <br />
@@ -101,3 +114,7 @@ For a deep dive into the backend architecture, please refer to the project docum
 - [Database Schema (NoSQL)](./docs/database-schema.md)
 
 - [API Routes & Endpoints](./docs/api-routes.md)
+
+## Development Methodology & Acknowledgements
+
+As the core focus of this project lies in algorithmic recommendations, database architecture, and data science applications, AI coding assistants were utilized primarily as productivity tools. They assisted in UI scaffolding, CSS styling, and generating frontend boilerplate, allowing for a concentrated effort on the backend logic, schema design, and custom system architecture.

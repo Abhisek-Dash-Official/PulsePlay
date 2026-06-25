@@ -1,8 +1,8 @@
-export default function UsersPage() {
+export default function MoviesPage() {
     return (
         <div>
-            <h1>Users Page</h1>
-            <p>This is the users page in the admin dashboard.</p>
+            <h1>Movies Page</h1>
+            <p>This is the movies page in the admin dashboard.</p>
         </div>
     );
 }

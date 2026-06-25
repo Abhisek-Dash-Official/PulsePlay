@@ -62,7 +62,7 @@ export const NAV_LINKS = [
 ];
 
 export const ADMIN_NAV_LINKS = [
-    { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
+    { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Movies Management", href: "/admin/movies", icon: Video },
     { name: "User Management", href: "/admin/users", icon: Users },
     { name: "Settings", href: "/admin/settings", icon: Settings }

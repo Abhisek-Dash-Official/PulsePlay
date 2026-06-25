@@ -1,6 +1,7 @@
 import { Inter, Montserrat } from "next/font/google";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_LOGO_URL, SITE_KEYWORDS } from "@/lib/constants";
 import "./globals.css";
+import { ToastContainer, Bounce } from "react-toastify";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,6 +30,19 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
     </html>
   );
 }

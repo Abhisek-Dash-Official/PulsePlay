@@ -2,13 +2,14 @@ import AdminSidebar from '@/components/admin/AdminSidebar';
 
 export default function AdminLayout({ children }) {
     return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500/30">
-            {/* Sidebar Component */}
-            <AdminSidebar />
+        <div className="flex min-h-screen bg-slate-950 text-slate-200">
 
-            {/* Main Content Area */}
-            <main className="flex-1 p-6 lg:p-8 overflow-y-auto">
-                <div className="max-w-7xl mx-auto">
+            <div className="hidden lg:block h-screen sticky top-0 shrink-0">
+                <AdminSidebar />
+            </div>
+
+            <main className="flex-1 h-screen overflow-y-auto">
+                <div className="max-w-7xl mx-auto p-4 lg:p-8">
                     {children}
                 </div>
             </main>

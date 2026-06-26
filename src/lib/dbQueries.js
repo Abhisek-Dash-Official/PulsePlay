@@ -29,7 +29,7 @@ export async function fetchData(collectionName, query = {}, options = {}) {
   const hasNext = data.length > limit;
   const finalData = hasNext ? data.slice(0, limit) : data;
 
-  return { data: finalData, count: data.length, hasNext };
+  return { data: finalData, count: finalData.length, hasNext };
 }
 
 // Check if a user exists by email

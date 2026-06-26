@@ -50,7 +50,7 @@ export default function AdminSidebar() {
   return (
     <>
       {/* --- MOBILE TOP NAVBAR --- */}
-      <div className="md:hidden flex items-center justify-between px-4 h-16 bg-slate-900 border-b border-slate-800 sticky top-0 z-40 w-full shrink-0">
+      <div className="lg:hidden flex items-center justify-between px-4 h-16 bg-slate-900 border-b border-slate-800 sticky top-0 z-40 w-full shrink-0">
         <Link href="/admin" className="flex items-center gap-3">
           <div className="p-1 bg-slate-950 rounded-md border border-slate-800">
             <Image src={SITE_LOGO_URL} alt="Logo" width={24} height={24} />
@@ -71,14 +71,14 @@ export default function AdminSidebar() {
       {/* --- MOBILE OVERLAY BACKGROUND --- */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* --- THE SIDEBAR --- */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 flex flex-col shadow-2xl transition-transform duration-300 ease-in-out md:static md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 h-screen bg-slate-900 border-r border-slate-800 flex flex-col shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

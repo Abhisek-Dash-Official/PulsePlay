@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import {
   Edit2,
   Trash2,
@@ -192,7 +191,9 @@ export default function AdminMovieCard({
   // READ MODE UI
   if (!isEditing) {
     return (
-      <div className="flex flex-col sm:flex-row gap-6 p-4 sm:p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-lg hover:border-slate-700 transition-colors group">
+      <div
+        className={`flex flex-col sm:flex-row gap-6 p-4 sm:p-6 rounded-2xl bg-slate-900 border ${movie.is_featured ? "border-cyan-500/50 shadow-[0_0_10px_rgba(6,182,212,0.1)] hover:border-cyan-500 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)]" : "border-slate-800 shadow-lg hover:border-slate-700"} transition-colors group`}
+      >
         {/* Poster */}
         <div className="w-full sm:w-32 md:w-48 shrink-0 relative aspect-2/3 rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
           <div className="absolute top-2 left-2 z-10">
@@ -207,10 +208,9 @@ export default function AdminMovieCard({
             </button>
           </div>
           {movie.poster_url ? (
-            <Image
+            <img
               src={movie.poster_url}
               alt={movie.title}
-              fill
               className="object-cover"
             />
           ) : (
@@ -221,6 +221,14 @@ export default function AdminMovieCard({
           <div className="absolute top-2 right-2 bg-black/80 backdrop-blur px-2 py-1 rounded text-xs font-bold text-yellow-400 border border-yellow-500/30">
             ⭐ {movie.rating}
           </div>
+          {movie.is_featured && (
+            <div className="absolute bottom-2 right-2 bg-cyan-500/20 backdrop-blur px-2 py-1 rounded text-xs font-bold text-cyan-400 border border-cyan-500/30 space-x-1">
+              <span>Featured</span>
+              <span className="bg-cyan-500 text-slate-900 px-1 rounded-full text-[10px]">
+                #{movie.priority || 0}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Content */}

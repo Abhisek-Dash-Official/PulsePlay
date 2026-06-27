@@ -201,8 +201,9 @@ export default function AdminDashboard() {
                                     <div>
                                         <p className="text-sm text-slate-300">
                                             <span className="font-semibold text-cyan-400">{action.user_id?.username || 'Unknown User'}</span>
-                                            {action.action_type === 'watch' ? ' streamed ' : ' downloaded '}
-                                            <span className="font-medium text-white">{action.media_id?.title || 'Unknown Media'}</span>
+                                            {` ${action.action_type} `}
+                                            <span className="font-medium text-white">
+                                                {`Movie: ${action.media_id?.title || 'Unknown Media'}`}</span>
                                         </p>
                                         <p className="text-xs text-slate-500 mt-1">
                                             {new Date(action.timestamp).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true, month: 'short', day: 'numeric' })}

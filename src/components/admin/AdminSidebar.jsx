@@ -53,7 +53,7 @@ export default function AdminSidebar() {
       <div className="lg:hidden flex items-center justify-between px-4 h-16 bg-slate-900 border-b border-slate-800 sticky top-0 z-40 w-full shrink-0">
         <Link href="/admin" className="flex items-center gap-3">
           <div className="p-1 bg-slate-950 rounded-md border border-slate-800">
-            <Image src={SITE_LOGO_URL} alt="Logo" width={24} height={24} />
+            <img src={SITE_LOGO_URL} alt="Logo" width={24} height={24} />
           </div>
           <span className="font-bold text-base text-white tracking-tight">
             {SITE_NAME}
@@ -86,7 +86,7 @@ export default function AdminSidebar() {
         <div className="h-20 flex items-center px-6 border-b border-slate-800/60">
           <Link href="/admin" className="flex items-center gap-3">
             <div className="p-1.5 bg-slate-950 rounded-lg border border-slate-800">
-              <Image src={SITE_LOGO_URL} alt="Logo" width={28} height={28} />
+              <img src={SITE_LOGO_URL} alt="Logo" width={28} height={28} />
             </div>
             <span className="font-bold text-lg text-white tracking-tight">
               {SITE_NAME}{" "}

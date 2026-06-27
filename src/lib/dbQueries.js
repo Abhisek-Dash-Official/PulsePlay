@@ -5,6 +5,7 @@ import { UserAction } from '@/models/UserAction';
 import bcrypt from 'bcryptjs';
 import { jwtVerify } from 'jose';
 import { MAX_WATCHLIST_SIZE, MAX_FAVOURITES_SIZE } from '@/lib/server-config';
+import mongoose from 'mongoose';
 
 const models = {
   "medias": Media,
@@ -76,7 +77,7 @@ export async function getUserIdFromToken(token) {
 export async function getUserDataFromToken(token) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   const { payload } = await jwtVerify(token, secret);
-  return payload;
+  return { "userId": payload.userId, "role": payload.role };
 }
 
 // Function for generic updates (Watchlist, Favorites)
@@ -98,7 +99,7 @@ export async function updateUserArray(userId, field, mediaId) {
   return await User.findByIdAndUpdate(
     userId,
     { $addToSet: { [field]: mediaId } },
-    { new: true }
+    { returnDocument: 'after', runValidators: true }
   );
 }
 
@@ -141,7 +142,7 @@ export async function updateMovie(id, updateData) {
   const updated = await Media.findByIdAndUpdate(
     id,
     { $set: updateData },
-    { new: true, runValidators: true }
+    { returnDocument: 'after', runValidators: true }
   );
 
   return updated;
@@ -154,14 +155,28 @@ export async function createMovie(movieData) {
   return await newMovie.save();
 }
 
+// Function for robust ObjectId conversion
+const toObjectId = (id) => {
+  if (!id) return null;
+
+  if (id instanceof mongoose.Types.ObjectId) return id;
+
+  if (id.buffer && id.buffer instanceof Object) {
+    const hexString = Object.values(id.buffer).map(b => b.toString(16).padStart(2, '0')).join('');
+    return new mongoose.Types.ObjectId(hexString);
+  }
+
+  return new mongoose.Types.ObjectId(id);
+};
+
 // Log user/admin actions
 export async function logUserAction({ user_id, media_id, action_type, role }) {
   try {
     await connectToDatabase();
 
     const newAction = await UserAction.create({
-      user_id,
-      media_id,
+      user_id: toObjectId(user_id),
+      media_id: toObjectId(media_id),
       action_type,
       role: role || 'user',
       timestamp: new Date()

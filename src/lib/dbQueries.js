@@ -72,6 +72,13 @@ export async function getUserIdFromToken(token) {
   return payload.userId;
 }
 
+// Function to get user data form token
+export async function getUserDataFromToken(token) {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+  const { payload } = await jwtVerify(token, secret);
+  return payload;
+}
+
 // Function for generic updates (Watchlist, Favorites)
 export async function updateUserArray(userId, field, mediaId) {
   await connectToDatabase();
@@ -145,4 +152,24 @@ export async function createMovie(movieData) {
   await connectToDatabase();
   const newMovie = new Media(movieData);
   return await newMovie.save();
+}
+
+// Log user/admin actions
+export async function logUserAction({ user_id, media_id, action_type, role }) {
+  try {
+    await connectToDatabase();
+
+    const newAction = await UserAction.create({
+      user_id,
+      media_id,
+      action_type,
+      role: role || 'user',
+      timestamp: new Date()
+    });
+
+    return { success: true, data: newAction };
+  } catch (error) {
+    console.error("Failed to log action:", error);
+    return { success: false, error: error.message };
+  }
 }

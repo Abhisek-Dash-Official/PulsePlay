@@ -68,7 +68,8 @@ An immutable log tracking user engagement ('watch' or 'download') to feed the Co
 "\_id": "ObjectId",
 "user_id": "ObjectId (References users.\_id)",
 "media_id": "ObjectId (References media.\_id)",
-"action_type": "String ('watch' | 'download')",
+"action_type": "String",
+"role": "String ('admin' | 'user')",
 "timestamp": "ISODate"
 }
 

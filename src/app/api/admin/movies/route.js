@@ -1,8 +1,7 @@
-// NOTE: Code is same as /api/movies because this is an admin route, but it can be modified in the future to give sensitive data to admin users only. For now, it is the same as the public route for movies.
-// Admin check is done in the proxy.js (middleware), so only admin users can access this route.
+// NOTE: Admin check is done in the proxy.js (middleware), so only admin users can access this route.
 
 import { NextResponse } from 'next/server';
-import { fetchData, createMovie } from '@/lib/dbQueries';
+import { fetchData, createMovie, getUserDataFromToken, logUserAction } from '@/lib/dbQueries';
 import { MOVIES_PER_PAGE } from '@/lib/server-config';
 
 // POST Request (Add)
@@ -10,7 +9,20 @@ export async function POST(request) {
     const body = await request.json();
     delete body._id;
     try {
+        const token = request.cookies.get('admin_token')?.value;
+        if (!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+        const { userId, role } = await getUserDataFromToken(token);
+
         const movie = await createMovie(body);
+
+        await logUserAction({
+            user_id: userId,
+            media_id: movie._id,
+            action_type: 'create',
+            role: role
+        });
+
         return NextResponse.json({ success: true, data: movie }, { status: 201 });
     }
     catch (error) {

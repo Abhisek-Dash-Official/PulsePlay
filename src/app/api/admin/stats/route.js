@@ -23,7 +23,7 @@ export async function GET() {
             UserAction.countDocuments({ action_type: 'watch' }),
             UserAction.countDocuments({ action_type: 'download' }),
             Media.find().sort({ created_at: -1 }).limit(5).select('title media_type origin created_at').lean(),
-            UserAction.find().sort({ timestamp: -1 }).limit(5)
+            UserAction.find({ role: "user" }).sort({ timestamp: -1 }).limit(5)
                 .populate('user_id', 'username')
                 .populate('media_id', 'title')
                 .lean()

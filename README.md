@@ -115,6 +115,15 @@ For a deep dive into the backend architecture, please refer to the project docum
 
 - [API Routes & Endpoints](./docs/api-routes.md)
 
+## Key Learnings
+
+Building PulsePlay has been an intensive experience, applying these concepts in a real-world project context:
+
+- **Advanced MongoDB Text Indexing:** Implemented weighted, multi-field text indexes for typo-tolerant, high-performance semantic search.
+- **Stateless Authentication (JWT):** Built a secure auth system using `jose` for stateless token signing and verification.
+- **API Debugging:** Used **Thunder Client** to handle request lifecycle debugging and header-based authentication validation.
+- **Professional Version Control:** Adopted **Atomic Commits** for clean, granular git history and utilized the **VIM** editor for efficient commit workflows.
+
 ## Development Methodology & Acknowledgements
 
 As the core focus of this project lies in algorithmic recommendations, database architecture, and data science applications, AI coding assistants were utilized primarily as productivity tools. They assisted in UI scaffolding, CSS styling, and generating frontend boilerplate, allowing for a concentrated effort on the backend logic, schema design, and custom system architecture.

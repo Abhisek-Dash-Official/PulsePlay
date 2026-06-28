@@ -188,3 +188,41 @@ export async function logUserAction({ user_id, media_id, action_type, role }) {
     return { success: false, error: error.message };
   }
 }
+
+// Update User Role
+export async function updateUserRole(userId, newRole) {
+  await connectToDatabase();
+  return await User.findByIdAndUpdate(
+    userId,
+    { role: newRole },
+    { returnDocument: 'after' }
+  );
+}
+
+// Delete User
+export async function deleteUser(userId) {
+  await connectToDatabase();
+  return await User.findByIdAndDelete(userId);
+}
+
+// Get User Actions
+export async function getUserAuditLogs(userId) {
+  await connectToDatabase();
+  return await UserAction.find({ user_id: userId }).sort({ timestamp: -1 }).lean();
+}
+
+// Create new user
+export async function createUser({ username, email, password, role, avatar_id = "default" }) {
+  await connectToDatabase();
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const newUser = await User.create({
+    username,
+    email,
+    password_hash: hashedPassword,
+    role,
+    avatar_id
+  });
+  return newUser;
+}

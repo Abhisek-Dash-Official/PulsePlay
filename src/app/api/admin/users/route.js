@@ -26,8 +26,8 @@ export async function GET(request) {
             skip: (page - 1) * limit
         };
 
-        const result = await fetchData('users', query, options);
-        return NextResponse.json(result);
+        const { data, count, hasNext } = await fetchData('users', query, options);
+        return NextResponse.json({ success: true, data, count, hasNext }, { status: 201 });
 
     } catch (error) {
         console.error("GET Users Error:", error);

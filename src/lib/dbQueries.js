@@ -208,7 +208,10 @@ export async function deleteUser(userId) {
 // Get User Actions
 export async function getUserAuditLogs(userId) {
   await connectToDatabase();
-  return await UserAction.find({ user_id: userId }).sort({ timestamp: -1 }).lean();
+  return await UserAction.find({ user_id: userId })
+    .populate('media_id', 'title poster_url media_type')
+    .sort({ timestamp: -1 })
+    .lean();
 }
 
 // Create new user

@@ -357,7 +357,7 @@ export default function AdminMovieCard({
               name="title"
               value={formData.title || ""}
               onChange={handleChange}
-              placeholder="e.g. Inception"
+              placeholder="Movie Name here"
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cyan-500 transition-colors"
             />
           </div>

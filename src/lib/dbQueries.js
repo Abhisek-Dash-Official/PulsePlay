@@ -229,3 +229,48 @@ export async function createUser({ username, email, password, role, avatar_id = 
   });
   return newUser;
 }
+
+// Update User Profile (Basic Info)
+export async function updateUserProfile(userId, { username, email, avatar_id }) {
+  await connectToDatabase();
+
+  const updateFields = {};
+  if (username) updateFields.username = username;
+  if (avatar_id) updateFields.avatar_id = avatar_id;
+
+  if (email) {
+    const existingEmail = await User.findOne({ email, _id: { $ne: userId } });
+    if (existingEmail) {
+      throw new Error("This email is already in use by another account.");
+    }
+    updateFields.email = email;
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    { $set: updateFields },
+    { returnDocument: 'after', runValidators: true }
+  );
+
+  if (!updatedUser) throw new Error("User not found.");
+  return updatedUser;
+}
+
+// Update User Password
+export async function updateUserPassword(userId, currentPassword, newPassword) {
+  await connectToDatabase();
+
+  const user = await User.findById(userId).select('+password_hash');
+
+  if (!user) throw new Error("User not found.");
+
+  const isMatch = await bcrypt.compare(currentPassword, user.password_hash);
+  if (!isMatch) {
+    throw new Error("Incorrect current password.");
+  }
+
+  user.password_hash = await bcrypt.hash(newPassword, 10);
+  await user.save();
+
+  return { success: true, message: "Password updated successfully." };
+}

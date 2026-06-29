@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserProfile, getUserDataFromToken } from '@/lib/dbQueries';
+import { getUserProfile, updateUserProfile, getUserDataFromToken } from '@/lib/dbQueries';
 
 export async function GET(request) {
     try {
@@ -20,8 +20,8 @@ export async function PATCH(request) {
     try {
 
         const { username, email, avatar_id, role } = await request.json();
-        const userToken = req.cookies.get('user_token')?.value;
-        const adminToken = req.cookies.get('admin_token')?.value;
+        const userToken = request.cookies.get('user_token')?.value;
+        const adminToken = request.cookies.get('admin_token')?.value;
 
         let token = null;
 
@@ -42,6 +42,7 @@ export async function PATCH(request) {
         const updatedUser = await updateUserProfile(userData.userId, { username, email, avatar_id });
         return NextResponse.json({ success: true, data: updatedUser });
     } catch (error) {
+        console.error("Profile change error: ", error);
         return NextResponse.json({ success: false, error: "Unauthorized or Invalid Request" }, { status: 401 });
     }
 }

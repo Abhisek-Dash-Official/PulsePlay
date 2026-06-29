@@ -4,8 +4,8 @@ import { updateUserPassword, getUserDataFromToken } from '@/lib/dbQueries';
 export async function PATCH(request) {
     try {
         const { currentPassword, newPassword, role } = await request.json();
-        const userToken = req.cookies.get('user_token')?.value;
-        const adminToken = req.cookies.get('admin_token')?.value;
+        const userToken = request.cookies.get('user_token')?.value;
+        const adminToken = request.cookies.get('admin_token')?.value;
 
         let token = null;
 

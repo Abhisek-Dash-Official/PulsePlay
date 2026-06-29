@@ -232,6 +232,8 @@ export async function createUser({ username, email, password, role, avatar_id = 
 
 // Update User Profile (Basic Info)
 export async function updateUserProfile(userId, { username, email, avatar_id }) {
+  userId = toObjectId(userId);
+
   await connectToDatabase();
 
   const updateFields = {};
@@ -258,6 +260,8 @@ export async function updateUserProfile(userId, { username, email, avatar_id }) 
 
 // Update User Password
 export async function updateUserPassword(userId, currentPassword, newPassword) {
+  userId = toObjectId(userId);
+
   await connectToDatabase();
 
   const user = await User.findById(userId).select('+password_hash');

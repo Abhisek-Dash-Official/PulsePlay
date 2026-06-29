@@ -115,6 +115,12 @@ For a deep dive into the backend architecture, please refer to the project docum
 
 - [API Routes & Endpoints](./docs/api-routes.md)
 
+## Known Issues & Limitations
+
+I am currently tracking a known architectural limitation. For a detailed technical explanation and the planned database schema update, please refer to the [Known Issues Documentation](./docs/KNOWN_ISSUES.md).
+
+- **Activity Logs** : Hard-deleted records display as "Unknown" due to dangling database references.
+
 ## Key Learnings
 
 Building PulsePlay has been an intensive experience, applying these concepts in a real-world project context:

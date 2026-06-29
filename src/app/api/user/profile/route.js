@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserProfile, getUserIdFromToken } from '@/lib/dbQueries';
+import { getUserProfile, getUserDataFromToken } from '@/lib/dbQueries';
 
 export async function GET(request) {
     try {
@@ -18,17 +18,28 @@ export async function GET(request) {
 
 export async function PATCH(request) {
     try {
+
+        const { username, email, avatar_id, role } = await request.json();
         const userToken = req.cookies.get('user_token')?.value;
         const adminToken = req.cookies.get('admin_token')?.value;
 
-        const token = userToken || adminToken;
+        let token = null;
 
-        if (!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        if (role === 'admin') {
+            if (!adminToken) return NextResponse.json({ error: "Admin Unauthorized" }, { status: 401 });
+            token = adminToken;
+        } else {
+            if (!userToken) return NextResponse.json({ error: "User Unauthorized" }, { status: 401 });
+            token = userToken;
+        }
 
-        const userId = await getUserIdFromToken(token);
+        const userData = await getUserDataFromToken(token);
 
-        const { username, email, avatar_id } = await request.json();
-        const updatedUser = await updateUserProfile(userId, { username, email, avatar_id });
+        if (userData.role !== role) {
+            return NextResponse.json({ error: "Role mismatch/Unauthorized" }, { status: 403 });
+        }
+
+        const updatedUser = await updateUserProfile(userData.userId, { username, email, avatar_id });
         return NextResponse.json({ success: true, data: updatedUser });
     } catch (error) {
         return NextResponse.json({ success: false, error: "Unauthorized or Invalid Request" }, { status: 401 });

@@ -1,23 +1,33 @@
 import { NextResponse } from 'next/server';
-import { updateUserPassword, getUserIdFromToken } from '@/lib/dbQueries';
+import { updateUserPassword, getUserDataFromToken } from '@/lib/dbQueries';
 
 export async function PATCH(request) {
     try {
+        const { currentPassword, newPassword, role } = await request.json();
         const userToken = req.cookies.get('user_token')?.value;
         const adminToken = req.cookies.get('admin_token')?.value;
 
-        const token = userToken || adminToken;
-        if (!token) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        let token = null;
 
-        const userId = await getUserIdFromToken(token);
+        if (role === 'admin') {
+            if (!adminToken) return NextResponse.json({ error: "Admin Unauthorized" }, { status: 401 });
+            token = adminToken;
+        } else {
+            if (!userToken) return NextResponse.json({ error: "User Unauthorized" }, { status: 401 });
+            token = userToken;
+        }
 
-        const { currentPassword, newPassword } = await request.json();
+        const userData = await getUserDataFromToken(token);
+
+        if (userData.role !== role) {
+            return NextResponse.json({ error: "Role mismatch/Unauthorized" }, { status: 403 });
+        }
 
         if (!currentPassword || !newPassword) {
             return NextResponse.json({ error: "Missing fields" }, { status: 400 });
         }
 
-        const result = await updateUserPassword(userId, currentPassword, newPassword);
+        const result = await updateUserPassword(userData.userId, currentPassword, newPassword);
 
         return NextResponse.json(result, { status: 200 });
 

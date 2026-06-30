@@ -68,6 +68,13 @@ export const MOBILE_NAV_LINKS = [
     { name: "Genres", href: "/genres", icon: LayoutGrid },
 ]
 
+export const FOOTER_LINKS = [
+    { name: "About Us", href: "/about" },
+    { name: "Terms of Service", href: "/terms" },
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Contact", href: "/contact" },
+];
+
 export const ADMIN_NAV_LINKS = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Movies Management", href: "/admin/movies", icon: Video },

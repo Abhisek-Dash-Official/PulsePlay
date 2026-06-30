@@ -99,7 +99,7 @@ Here is the planned phased development progression for PulsePlay:
 - [x] **Phase 1:** Project Initialization & Architecture
 - [x] **Phase 2:** Database Architecture (MongoDB Connection & Schema Models)
 - [x] **Phase 3:** Advanced Text Search Integration (MongoDB)
-- [ ] **Phase 4:** Admin CMS Development
+- [x] **Phase 4:** Admin CMS Development
 - [ ] **Phase 5:** User Authentication System
 - [ ] **Phase 6:** Global UI & Home Page
 - [ ] **Phase 7:** Media Details Hub
@@ -129,6 +129,15 @@ Building PulsePlay has been an intensive experience, applying these concepts in 
 - **Stateless Authentication (JWT):** Built a secure auth system using `jose` for stateless token signing and verification.
 - **API Debugging:** Used **Thunder Client** to handle request lifecycle debugging and header-based authentication validation.
 - **Professional Version Control:** Adopted **Atomic Commits** for clean, granular git history and utilized the **VIM** editor for efficient commit workflows.
+
+## 🛠 Key Challenges Faced
+
+- **Data Type Mismatches:** I encountered frequent issues with data type consistency, one of the e.g. when dealing with MongoDB `ObjectId`, `Strings`, and `Buffer` formats. These mismatches led to subtle bugs.
+  - _Insight:_ This was a strong reminder of why **TypeScript** is essential. Using static types would have caught these mismatches at compile-time rather than during runtime debugging.
+
+- **Lack of Upfront Planning:** I started implementation without a formal architecture or database design phase. This led to:
+  - **Decision Fatigue:** Throughout the development process, I found myself constantly stopping to decide on data formats and feature integration strategies, rather than just building.
+  - **Implementation Roadblocks:** Some ideas for features emerged midway, but because I hadn't planned the database schema beforehand, I couldn't implement them without risking a full database restructuring. I realized that features are only as good as the underlying schema they are built on.
 
 ## Development Methodology & Acknowledgements
 

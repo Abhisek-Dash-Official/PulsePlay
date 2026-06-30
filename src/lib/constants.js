@@ -1,4 +1,4 @@
-import { Flame, Star, Sparkles, Home, Film, Clapperboard, Tv, ListVideo, Heart, LayoutGrid, LayoutDashboard, Video, Users, Settings, Compass, Eye, Skull, Wand2, BookOpen, Sword, History, Search, Rocket, Fingerprint, Globe } from "lucide-react";
+import { Flame, Star, Sparkles, Home, Film, Clapperboard, Tv, ListVideo, Heart, LayoutGrid, LayoutDashboard, Video, Users, Settings, Compass, Eye, Skull, Wand2, BookOpen, Sword, History, Search, Rocket, Fingerprint, Globe, PlayCircle, Download } from "lucide-react";
 
 export const SITE_NAME = "PulsePlay";
 export const SITE_DESCRIPTION = "Discover blockbuster movies, new releases, and personalized recommendations. Watch online or download directly with PulsePlay.";
@@ -66,4 +66,10 @@ export const ADMIN_NAV_LINKS = [
     { name: "Movies Management", href: "/admin/movies", icon: Video },
     { name: "User Management", href: "/admin/users", icon: Users },
     { name: "Settings", href: "/admin/settings", icon: Settings }
+];
+
+export const SIGNUP_FEATURES = [
+    { icon: Search, title: "Aggregated Links", description: "We scrape the best sources so you get the movie instantly." },
+    { icon: PlayCircle, title: "Direct Streaming", description: "No fake buttons. Just click play on our external trusted links." },
+    { icon: Download, title: "One-Click Downloads", description: "Multiple resolution options available right at your fingertips." }
 ];

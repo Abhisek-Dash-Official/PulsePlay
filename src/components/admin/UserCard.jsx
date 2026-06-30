@@ -24,6 +24,13 @@ export default function UserCard({ user, onActionSuccess }) {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Delete failed");
+
+      const data = await res.json();
+      if (data.isSelfDeletion) {
+        window.location.href = "/admin/login";
+        return;
+      }
+
       toast.success("User deleted successfully.");
       onActionSuccess();
     } catch (error) {
@@ -81,6 +88,13 @@ export default function UserCard({ user, onActionSuccess }) {
         body: JSON.stringify({ newRole }),
       });
       if (!res.ok) throw new Error("Role update failed");
+
+      const data = await res.json();
+      if (data.isSelfDemotion) {
+        window.location.href = "/admin/login";
+        return;
+      }
+
       toast.success(`User successfully updated to ${newRole.toUpperCase()}.`);
       onActionSuccess();
     } catch (error) {

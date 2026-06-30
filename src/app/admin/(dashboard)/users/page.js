@@ -22,7 +22,7 @@ export default function AdminUsersPage() {
     const search = searchParams.get('search') || '';
     const role = searchParams.get('role') || '';
     const sort = searchParams.get('sort') || 'username';
-    const order = searchParams.get('order') || '-1';
+    const order = searchParams.get('order') || '1';
 
     const fetchUsers = async () => {
         setLoading(true);
@@ -106,8 +106,8 @@ export default function AdminUsersPage() {
                         router.push(`?${params.toString()}`);
                     }}
                 >
-                    <option value="-1"> sort order 1 </option>
-                    <option value="1"> sort order -1 </option>
+                    <option value="1"> sort order 1 </option>
+                    <option value="-1"> sort order -1 </option>
                 </select>
             </div>
 

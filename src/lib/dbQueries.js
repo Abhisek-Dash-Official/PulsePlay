@@ -23,6 +23,7 @@ export async function fetchData(collectionName, query = {}, options = {}) {
   const { sort = {}, limit = 0, skip = 0 } = options;
 
   const data = await Model.find(query)
+    .collation({ locale: 'en', strength: 2 })
     .sort(sort)
     .skip(skip)
     .limit(limit + 1) // Fetch one extra to check if there's a next page;
@@ -70,7 +71,7 @@ export async function verifyUserCredentials(email, plainPassword) {
 export async function getUserIdFromToken(token) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   const { payload } = await jwtVerify(token, secret);
-  return payload.userId;
+  return toObjectId(payload.userId);
 }
 
 // Function to get user data form token
@@ -277,4 +278,11 @@ export async function updateUserPassword(userId, currentPassword, newPassword) {
   await user.save();
 
   return { success: true, message: "Password updated successfully." };
+}
+
+// Check Ids are equal
+export function areIdsEqual(id1, id2) {
+  const obj1 = toObjectId(id1);
+  const obj2 = toObjectId(id2);
+  return obj1 && obj2 && obj1.equals(obj2);
 }

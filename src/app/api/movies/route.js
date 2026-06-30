@@ -21,7 +21,12 @@ export async function GET(request) {
 
         // Dynamic Filter
         let filter = {};
-        if (query) filter.$text = { $search: query };
+        if (query) {
+            filter.$or = [
+                { title: { $regex: query, $options: 'i' } },
+                { plot: { $regex: query, $options: 'i' } }
+            ];
+        }
         if (genre) filter.genres = genre;
         if (origin) filter.origin = origin;
         if (media_type) filter.media_type = media_type;

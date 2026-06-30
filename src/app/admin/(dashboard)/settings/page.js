@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getAvatarImgUrl } from "@/lib/constants";
+import { useAdminStore } from "@/store/adminStore"
 
 export default function AdminSettings() {
     const router = useRouter();
@@ -17,6 +18,8 @@ export default function AdminSettings() {
     const [message, setMessage] = useState({ type: "", text: "" });
 
     const availableAvatars = ["admin", ...Array.from({ length: 17 }, (_, i) => String(i + 1))];
+
+    const setAdminData = useAdminStore((state) => state.setAdminData);
 
     useEffect(() => {
         const fetchAdminProfile = async () => {
@@ -52,12 +55,17 @@ export default function AdminSettings() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...profile, role: "admin" }),
             });
-            const data = await res.json();
+            const result = await res.json();
 
-            if (data.success) {
+            if (result.success) {
                 setMessage({ type: "success", text: "Profile updated successfully!" });
+                setAdminData({
+                    username: result.data.username,
+                    avatar_id: result.data.avatar_id,
+                    role: result.data.role
+                });
             } else {
-                setMessage({ type: "error", text: data.error || "Failed to update profile." });
+                setMessage({ type: "error", text: result.error || "Failed to update profile." });
             }
         } catch (error) {
             setMessage({ type: "error", text: "Something went wrong." });

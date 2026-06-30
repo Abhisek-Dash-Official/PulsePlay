@@ -25,9 +25,6 @@ const MediaSchema = new mongoose.Schema({
     tags: [String],
 }, { timestamps: { createdAt: 'created_at', updatedAt: false } });
 
-// Search Bar
-MediaSchema.index({ title: 'text', plot: 'text', tags: 'text', created_at: -1 });
-
 // Global Sorting (Home Page New Releases & Top Rated)
 MediaSchema.index({ created_at: -1 });
 MediaSchema.index({ rating: -1 });
@@ -38,6 +35,5 @@ MediaSchema.index({ genres: 1, created_at: -1 });
 // Filtered Browsing
 MediaSchema.index({ origin: 1, created_at: -1 });
 MediaSchema.index({ media_type: 1, created_at: -1 });
-
 
 export const Media = mongoose.models.Media || mongoose.model('Media', MediaSchema, 'medias');

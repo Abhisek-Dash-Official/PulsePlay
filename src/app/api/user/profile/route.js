@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserProfile, updateUserProfile, getUserDataFromToken } from '@/lib/dbQueries';
+import { getUserProfile, updateUserProfile, getUserDataFromToken, getUserIdFromToken } from '@/lib/dbQueries';
 
 export async function GET(request) {
     try {

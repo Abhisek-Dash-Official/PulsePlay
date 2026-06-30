@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getUserProfile } from '@/lib/dbQueries';
+import { getUserProfile, getUserIdFromToken } from '@/lib/dbQueries';
 
 export async function GET(request) {
     try {
@@ -15,6 +15,7 @@ export async function GET(request) {
 
         return NextResponse.json({ success: true, user: admin });
     } catch (error) {
+        console.log(error)
         return NextResponse.json({ success: false, error: "Invalid Admin Session" }, { status: 401 });
     }
 }

@@ -49,7 +49,6 @@ export const getAvatarImgUrl = (id = null) => id ? `/images/avatars/avatar-${id}
 export const genreImgUrl = (genreName) => `/images/genres/${genreName.toLowerCase()}.png`
 
 // Navbar Links
-
 export const NAV_LINKS = [
     { name: "Home", href: "/", icon: Home },
     { name: "Bollywood", href: "/bollywood", icon: Clapperboard },
@@ -61,6 +60,14 @@ export const NAV_LINKS = [
     { name: "Genres", href: "/genres", icon: LayoutGrid },
 ];
 
+export const MOBILE_NAV_LINKS = [
+    { name: "Home", href: "/", icon: Home },
+    { name: "Bollywood", href: "/bollywood", icon: Clapperboard },
+    { name: "Hollywood", href: "/hollywood", icon: Globe },
+    { name: "Series", href: "/series", icon: Tv },
+    { name: "Genres", href: "/genres", icon: LayoutGrid },
+]
+
 export const ADMIN_NAV_LINKS = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Movies Management", href: "/admin/movies", icon: Video },
@@ -68,6 +75,7 @@ export const ADMIN_NAV_LINKS = [
     { name: "Settings", href: "/admin/settings", icon: Settings }
 ];
 
+// For Signup Page Only
 export const SIGNUP_FEATURES = [
     { icon: Search, title: "Aggregated Links", description: "We scrape the best sources so you get the movie instantly." },
     { icon: PlayCircle, title: "Direct Streaming", description: "No fake buttons. Just click play on our external trusted links." },

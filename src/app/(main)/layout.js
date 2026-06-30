@@ -1,18 +1,16 @@
-// TODO: Create/Import Header including TopBar and NavBar in /(main)/layout.js
-// TODO: TopBar [logo, brandname, search bar, watchlist, user_avatar, user_logo]
-// TODO: NavBar [home, hollywood, bollywood, series, genre, favourites]
-// TODO: user_logo:onclick_dropdown{logo+name, watchlist, favourites, sign_out}])
+import Header from '@/components/layout/Header';
+import MobileNavbar from '@/components/layout/MobileNavbar';
+
 
 export default function MainLayout({ children }) {
     return (
-        <div className="flex min-h-screen flex-col">
-            {/* TODO: Import Header Component here later */}
-
-            <main className="flex-1">
+        <div className="min-h-screen bg-[#09090b] text-white">
+            <Header />
+            <main className="pt-24 sm:pt-32 pb-16 md:pb-0">
                 {children}
             </main>
-
-            {/* TODO: Import Footer Component here later */}
+            <MobileNavbar />
+            {/* <Footer /> */}
         </div>
     );
 }

@@ -54,7 +54,7 @@ export default function GenreSlider() {
         <div className="flex items-center gap-4">
           {/* Explore All */}
           <Link
-            href="/genre"
+            href="/genres"
             className="flex items-center gap-1.5 text-sm text-white/50 hover:text-cyan-400 transition-colors group"
           >
             Explore all

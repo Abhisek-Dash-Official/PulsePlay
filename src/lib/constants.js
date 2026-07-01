@@ -40,11 +40,6 @@ export const GENRES = [ // If name is changed, update the genreImgUrl() function
     { id: "romance", name: "Romance", icon: Heart }
 ];
 
-export const BROWSE_SECTIONS = [ // id is related to server-config.js's SECTION_CONFIG keys. If changed, update there as well.
-    { id: "new-releases", title: "New Releases", icon: Flame },
-    { id: "top-rated", title: "Top Rated", icon: Star },
-];
-
 // Helper Functions
 export const getAvatarImgUrl = (id = null) => id ? `/images/avatars/avatar-${id}.png` : "/images/avatars/default.png";
 export const genreImgUrl = (genreName) => `/images/genres/${genreName.toLowerCase()}.png`

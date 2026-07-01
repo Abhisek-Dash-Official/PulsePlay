@@ -8,7 +8,6 @@ export const FAVORITES_PAGE_LIMIT = 10; // Number of items per page in watchlist
 export const MAX_WATCHLIST_SIZE = 25;
 export const MAX_FAVOURITES_SIZE = 25;
 
-// NOTE: keys are related to constants.js's BROWSE_SECTIONS ids. If changed, update there as well.
 export const SECTION_CONFIG = {
     "new-releases": { limit: 15, sort: { created_at: -1 } },
     "top-rated": { limit: 15, sort: { rating: -1 } }

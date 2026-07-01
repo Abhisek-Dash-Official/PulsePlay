@@ -23,7 +23,7 @@ export async function GET(request) {
             }
 
             const skip = (page - 1) * config.limit;
-            const { data, count, hasNext } = await fetchData('media', {}, {
+            const { data, count, hasNext } = await fetchData('medias', {}, {
                 sort: config.sort,
                 limit: config.limit,
                 skip: skip
@@ -37,7 +37,7 @@ export async function GET(request) {
 
         // Fetch hero banner if requested
         if (includeHero) {
-            tasks.hero = fetchData('media', HERO_CONFIG.filter, {
+            tasks.hero = fetchData('medias', HERO_CONFIG.filter, {
                 limit: HERO_CONFIG.limit,
                 sort: HERO_CONFIG.sort
             });
@@ -46,7 +46,7 @@ export async function GET(request) {
         // Fetch requested sections defined in configuration
         requestedSections.forEach((id) => {
             if (SECTION_CONFIG[id]) {
-                tasks[id] = fetchData('media', {}, {
+                tasks[id] = fetchData('medias', {}, {
                     sort: SECTION_CONFIG[id].sort,
                     limit: SECTION_CONFIG[id].limit,
                     skip: 0

@@ -101,7 +101,7 @@ Here is the planned phased development progression for PulsePlay:
 - [x] **Phase 3:** Advanced Text Search Integration (MongoDB)
 - [x] **Phase 4:** Admin CMS Development
 - [x] **Phase 5:** User Authentication System
-- [ ] **Phase 6:** Global UI & Home Page
+- [x] **Phase 6:** Global UI & Home Page
 - [ ] **Phase 7:** Media Details Hub
 - [ ] **Phase 8:** User Interactions (Watchlist & Favorites)
 - [ ] **Phase 9:** Search and Dynamic Filtering/Sorting Feature

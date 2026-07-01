@@ -1,43 +1,59 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 
-import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
 import { useRouter } from "next/navigation";
-import { LogOut, User as UserIcon, Heart, ListVideo } from "lucide-react";
+
+import {
+  User,
+  Heart,
+  ListVideo,
+  Settings,
+  LogOut,
+  ChevronDown,
+} from "lucide-react";
+
 import { useUserStore } from "@/store/userStore";
 import { getAvatarImgUrl } from "@/lib/constants";
 
 export default function UserDropdown() {
-  const { userData, clearUserData } = useUserStore();
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+
+  const { userData, clearUserData } = useUserStore();
+
+  const [open, setOpen] = useState(false);
+
   const dropdownRef = useRef(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    function handleClick(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
+        setOpen(false);
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    document.addEventListener("mousedown", handleClick);
+
+    return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
   const handleLogout = () => {
-    // Clear Zustand state and redirect
     clearUserData();
-    setIsOpen(false);
+    setOpen(false);
     router.push("/login");
   };
 
-  // If not logged in, show Sign In button
   if (!userData) {
     return (
       <Link
         href="/login"
-        className="px-4 py-2 text-sm font-medium text-white bg-cyan-600 hover:bg-cyan-500 rounded-full transition-colors shadow-lg shadow-cyan-500/20"
+        className="rounded-xl px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-[1.03] hover:brightness-110"
+        style={{
+          background: "linear-gradient(90deg,#06B6D4,#7C3AED)",
+          boxShadow: "0 4px 18px rgba(124,58,237,.35)",
+        }}
       >
         Sign In
       </Link>
@@ -45,72 +61,177 @@ export default function UserDropdown() {
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      {/* Avatar Button */}
+    <div ref={dropdownRef} className="relative">
+      {/* Avatar Trigger */}
+
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 focus:outline-none"
+        onClick={() => setOpen((prev) => !prev)}
+        className="group flex items-center gap-2"
       >
-        <div className="w-9 h-9 rounded-full overflow-hidden border border-white/10 hover:border-cyan-400 transition-colors">
-          <Image
-            src={getAvatarImgUrl(userData.avatar_id)}
-            alt={userData.username}
-            width={36}
-            height={36}
-            className="object-cover"
-          />
+        <div
+          className="rounded-full p-[1.5px] transition-all duration-300 group-hover:scale-105"
+          style={{
+            background: "linear-gradient(135deg,#06B6D4,#7C3AED)",
+            boxShadow: open
+              ? "0 0 18px rgba(6,182,212,.35)"
+              : "0 0 0 rgba(0,0,0,0)",
+          }}
+        >
+          <div className="overflow-hidden rounded-full bg-[#07070F]">
+            <Image
+              src={getAvatarImgUrl(userData.avatar_id)}
+              alt={userData.username}
+              width={40}
+              height={40}
+              className="rounded-full object-cover"
+            />
+          </div>
         </div>
+
+        <ChevronDown
+          size={16}
+          className={`hidden text-white/50 transition-all duration-300 md:block ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
-      {/* Dropdown Menu */}
-      {isOpen && (
-        <div className="absolute right-0 mt-3 w-56 bg-[#121217]/95 backdrop-blur-xl border border-white/8 rounded-2xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-          {/* User Info Header */}
-          <div className="px-4 py-3 border-b border-white/5 bg-white/2">
-            <p className="text-sm font-semibold text-white truncate">
-              {userData.username}
-            </p>
-            <p className="text-xs text-slate-400 truncate capitalize">
-              {userData.role || "User"}
-            </p>
+      {open && (
+        <div
+          className="absolute right-0 mt-4 w-55 overflow-hidden rounded-2xl border z-50"
+          style={{
+            background: "rgba(10,10,18,.96)",
+            backdropFilter: "blur(24px)",
+            borderColor: "rgba(255,255,255,.08)",
+            boxShadow:
+              "0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(6,182,212,.08)",
+            animation: "dropdownIn .18s ease-out",
+          }}
+        >
+          <style>{`
+            @keyframes dropdownIn{
+              from{
+                opacity:0;
+                transform:translateY(-8px);
+              }
+              to{
+                opacity:1;
+                transform:translateY(0);
+              }
+            }
+          `}</style>
+
+          {/* Header */}
+
+          <div className="flex items-center gap-3 px-4 py-4">
+            <div
+              className="rounded-full p-[1.5px]"
+              style={{
+                background: "linear-gradient(135deg,#06B6D4,#7C3AED)",
+              }}
+            >
+              <div className="overflow-hidden rounded-full bg-[#07070F]">
+                <Image
+                  src={getAvatarImgUrl(userData.avatar_id)}
+                  alt={userData.username}
+                  width={32}
+                  height={32}
+                  className="rounded-full object-cover"
+                />
+              </div>
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold text-white">
+                {userData.username}
+              </p>
+
+              <span
+                className="mt-1 inline-flex rounded-full border px-2 py-0.5 text-[10px] font-medium"
+                style={{
+                  color: "#06B6D4",
+                  background: "rgba(6,182,212,.12)",
+                  borderColor: "rgba(6,182,212,.20)",
+                }}
+              >
+                User
+              </span>
+            </div>
           </div>
 
-          {/* Links */}
+          <div
+            style={{
+              borderTop: "1px solid rgba(255,255,255,.06)",
+            }}
+          />
+
+          {/* Menu */}
           <div className="py-2">
             <Link
               href="/profile"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/4 transition-colors"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-white/5"
             >
-              <UserIcon className="w-4 h-4 text-cyan-400" />
-              My Profile
+              <User size={16} className="text-cyan-400" />
+
+              <span className="text-white/65 transition-colors duration-150 hover:text-white">
+                My Profile
+              </span>
             </Link>
+
             <Link
               href="/watchlist"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/4 transition-colors"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-white/5"
             >
-              <ListVideo className="w-4 h-4 text-cyan-400" />
-              Watchlist
+              <ListVideo size={16} className="text-cyan-400" />
+
+              <span className="text-white/65">Watchlist</span>
             </Link>
+
             <Link
               href="/favourites"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/4 transition-colors"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-white/5"
             >
-              <Heart className="w-4 h-4 text-cyan-400" />
-              Favourites
+              <Heart size={16} className="text-cyan-400" />
+
+              <span className="text-white/65">Favourites</span>
+            </Link>
+
+            <Link
+              href="/settings"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-white/5"
+            >
+              <Settings size={16} className="text-cyan-400" />
+
+              <span className="text-white/65">Settings</span>
             </Link>
           </div>
 
-          {/* Sign Out */}
-          <div className="py-2 border-t border-white/5">
+          <div
+            style={{
+              borderTop: "1px solid rgba(255,255,255,.05)",
+            }}
+          />
+
+          {/* Logout */}
+          <div className="py-2">
             <button
+              type="button"
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-400/10 transition-colors"
+              className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-all duration-150 hover:bg-red-500/10"
             >
-              <LogOut className="w-4 h-4" />
-              Sign Out
+              <LogOut size={16} className="text-red-400" />
+
+              <span
+                style={{
+                  color: "rgba(248,113,113,.85)",
+                }}
+              >
+                Sign Out
+              </span>
             </button>
           </div>
         </div>

@@ -5,29 +5,68 @@ import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 
 export default function SearchBar() {
-  const [query, setQuery] = useState("");
   const router = useRouter();
 
-  const handleSearch = (e) => {
+  const [query, setQuery] = useState("");
+  const [focused, setFocused] = useState(false);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim()) {
-      router.push(`/movies?search=${encodeURIComponent(query.trim())}`);
-      setQuery(""); // Clear after search
-    }
+
+    const value = query.trim();
+
+    if (!value) return;
+
+    router.push(`/movies?search=${encodeURIComponent(value)}`);
+
+    setQuery("");
+    setFocused(false);
   };
 
   return (
-    <form onSubmit={handleSearch} className="relative w-full max-w-sm group">
-      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none transition-colors duration-300">
-        <Search className="h-4.5 w-4.5 text-slate-500 group-focus-within:text-cyan-400" />
+    <form onSubmit={handleSubmit} className="w-full">
+      {/* Gradient Border Wrapper */}
+      <div
+        className="rounded-xl p-px transition-all duration-300"
+        style={
+          focused
+            ? {
+                background: "linear-gradient(90deg,#06B6D4,#7C3AED)",
+                boxShadow: "0 0 0 3px rgba(6,182,212,.12)",
+              }
+            : {
+                background: "rgba(255,255,255,.08)",
+              }
+        }
+      >
+        {/* Inner Container */}
+        <div className="relative rounded-xl bg-[#07070F]">
+          {/* Search Icon */}
+
+          <Search
+            size={16}
+            className="absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300"
+            style={{
+              color: focused ? "#06B6D4" : "rgba(255,255,255,.3)",
+            }}
+          />
+
+          <input
+            type="text"
+            value={query}
+            placeholder="Search movies, series..."
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            className="h-11 w-full rounded-xl border-none bg-transparent pl-11 pr-4 text-sm text-white placeholder:text-white/30 outline-none transition-all duration-300"
+            style={{
+              background: focused
+                ? "rgba(255,255,255,.07)"
+                : "rgba(255,255,255,.04)",
+            }}
+          />
+        </div>
       </div>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search movies, series..."
-        className="block w-full pl-10 pr-4 py-2 border border-white/6 rounded-full bg-white/3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/6 transition-all duration-300 shadow-inner"
-      />
     </form>
   );
 }

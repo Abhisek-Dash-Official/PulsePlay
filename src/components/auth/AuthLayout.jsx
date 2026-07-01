@@ -14,101 +14,298 @@ export default function AuthLayout({
   features,
 }) {
   return (
-    <div className="min-h-screen flex w-full bg-[#121217]/70 selection:bg-cyan-500/30 font-sans">
-      {/* LEFT SIDE: The Pitch & Branding */}
-      <div className="hidden lg:flex w-[55%] relative flex-col justify-between p-16 overflow-hidden border-r border-white/5">
-        {/* Backgrounds */}
-        <div className="absolute inset-0 z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 mix-blend-overlay"></div>
-        <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-cyan-900/20 blur-[150px] rounded-full pointer-events-none z-0"></div>
+    <div
+      className="relative min-h-screen flex overflow-hidden"
+      style={{ background: "#07070F" }}
+    >
+      {/* Global Background Layers */}
+
+      {/* Cyan Orb */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: "-15%",
+          left: "-10%",
+          width: 600,
+          height: 600,
+          background:
+            "radial-gradient(circle, rgba(6,182,212,.13) 0%, transparent 65%)",
+          filter: "blur(70px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Violet Orb */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: "-15%",
+          right: "-10%",
+          width: 600,
+          height: 600,
+          background:
+            "radial-gradient(circle, rgba(124,58,237,.13) 0%, transparent 65%)",
+          filter: "blur(70px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Dot Grid */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px)",
+          backgroundSize: "30px 30px",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* LEFT PANEL */}
+
+      <aside
+        className="hidden lg:flex relative w-[55%] flex-col justify-between overflow-hidden"
+        style={{
+          padding: "56px 72px",
+          borderRight: "1px solid rgba(255,255,255,.05)",
+        }}
+      >
+        {/* Strong Cyan Orb */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: "-10%",
+            left: "-10%",
+            width: 500,
+            height: 500,
+            background:
+              "radial-gradient(circle, rgba(6,182,212,.18) 0%, transparent 70%)",
+            filter: "blur(80px)",
+            pointerEvents: "none",
+          }}
+        />
 
         {/* Logo */}
-        <div className="relative z-10 flex items-center gap-3">
+        <div className="relative z-10 flex items-center gap-4">
           <Image
             src={SITE_LOGO_URL}
             alt={SITE_NAME}
             width={40}
             height={40}
-            className="object-contain"
+            style={{
+              filter: "drop-shadow(0 0 14px rgba(6,182,212,.5))",
+            }}
           />
-          <span className="text-2xl font-bold text-white tracking-tight">
+
+          <span className="text-2xl font-bold tracking-tight text-white">
             {SITE_NAME}
           </span>
         </div>
 
+        {/* Branding Content */}
         <div className="relative z-10 max-w-xl">
-          <h1 className="text-5xl xl:text-6xl font-bold text-white leading-[1.1] tracking-tighter mb-6">
+          <h1
+            className="font-bold text-white leading-none"
+            style={{
+              fontSize: "60px",
+              letterSpacing: "-.04em",
+              marginBottom: "28px",
+            }}
+          >
             {leftHeading}
           </h1>
-          <p className="text-lg text-slate-400 font-light leading-relaxed mb-12 max-w-md">
+
+          <p
+            style={{
+              fontSize: "17px",
+              color: "rgba(255,255,255,.5)",
+              lineHeight: 1.7,
+              marginBottom: "40px",
+            }}
+          >
             {leftText}
           </p>
-
           {features && (
             <div className="space-y-6">
-              {features.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-4">
-                  <div className="mt-1 p-2 bg-white/5 rounded-lg border border-white/10">
-                    <feature.icon className="w-5 h-5 text-cyan-400" />
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+
+                return (
+                  <div key={index} className="flex items-start gap-4">
+                    {/* Icon */}
+                    <div
+                      className="flex items-center justify-center rounded-lg shrink-0"
+                      style={{
+                        width: 44,
+                        height: 44,
+                        background: "rgba(6,182,212,.10)",
+                        border: "1px solid rgba(6,182,212,.20)",
+                      }}
+                    >
+                      <Icon
+                        size={18}
+                        style={{
+                          color: "#22D3EE",
+                        }}
+                      />
+                    </div>
+
+                    {/* Text */}
+                    <div>
+                      <h3
+                        style={{
+                          color: "#fff",
+                          fontWeight: 600,
+                          fontSize: "15px",
+                          marginBottom: 4,
+                        }}
+                      >
+                        {feature.title}
+                      </h3>
+
+                      <p
+                        style={{
+                          color: "rgba(255,255,255,.45)",
+                          fontSize: "14px",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {feature.description}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-white font-medium">{feature.title}</h3>
-                    <p className="text-slate-400 text-sm mt-1">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
 
-        <div className="relative z-10 text-sm text-slate-500">
+        {/* Footer */}
+        <div
+          className="relative z-10"
+          style={{
+            color: "rgba(255,255,255,.35)",
+            fontSize: 12,
+            letterSpacing: ".02em",
+          }}
+        >
           © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
         </div>
-      </div>
+      </aside>
 
-      {/* RIGHT SIDE: Form Container */}
-      <div className="w-full lg:w-[45%] flex items-center justify-center p-6 sm:p-12 relative">
-        <div className="lg:hidden absolute top-0 right-0 w-full h-full bg-cyan-900/10 blur-[100px] pointer-events-none z-0" />
+      {/* RIGHT PANEL */}
 
-        <div className="w-full max-w-110 z-10">
-          <div className="flex flex-col items-center text-center mb-10 lg:hidden">
+      <section className="w-full lg:w-[45%] flex items-center justify-center p-6 sm:p-12 relative z-10">
+        <div className="w-full max-w-md">
+          {/* Mobile Logo */}
+          <div className="lg:hidden flex flex-col items-center mb-8">
             <Image
               src={SITE_LOGO_URL}
               alt={SITE_NAME}
               width={56}
               height={56}
-              className="mb-4"
+              style={{
+                filter: "drop-shadow(0 0 16px rgba(6,182,212,.5))",
+              }}
             />
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+
+            <h1 className="mt-4 text-3xl font-bold tracking-tight text-white">
               {SITE_NAME}
             </h1>
           </div>
 
-          <div className="bg-[#0f0f13]/80 backdrop-blur-2xl rounded-2xl border border-white/8 p-8 sm:p-10 shadow-2xl">
-            <div className="mb-8">
-              <h2 className="text-2xl font-semibold text-white tracking-tight">
-                {title}
-              </h2>
-              <p className="text-sm text-slate-400 mt-1">{subtitle}</p>
-            </div>
-
-            {children}
-
-            <div className="mt-8 pt-6 border-t border-white/5">
-              <p className="text-center text-sm text-slate-400">
-                {bottomText}{" "}
-                <Link
-                  href={bottomLinkHref}
-                  className="text-white font-medium hover:text-cyan-400 transition-colors duration-200"
+          {/* Gradient Border Wrapper */}
+          <div
+            style={{
+              padding: "1px",
+              borderRadius: "1.25rem",
+              background:
+                "linear-gradient(135deg, rgba(6,182,212,.25), rgba(124,58,237,.20))",
+            }}
+          >
+            {/* Glass Card */}
+            <div
+              style={{
+                background: "rgba(8,8,16,.92)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                borderRadius: "calc(1.25rem - 1px)",
+                padding: "40px",
+              }}
+              className="max-sm:p-7"
+            >
+              {/* Heading */}
+              <div className="mb-8">
+                <h2
+                  style={{
+                    color: "#fff",
+                    fontSize: "22px",
+                    fontWeight: 700,
+                    marginBottom: 6,
+                  }}
                 >
-                  {bottomLink}
-                </Link>
-              </p>
+                  {title}
+                </h2>
+
+                <p
+                  style={{
+                    color: "rgba(255,255,255,.42)",
+                    fontSize: 14,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {subtitle}
+                </p>
+              </div>
+
+              {children}
+
+              {/* Bottom Divider */}
+              <div
+                style={{
+                  marginTop: 32,
+                  paddingTop: 24,
+                  borderTop: "1px solid rgba(255,255,255,.06)",
+                }}
+              >
+                <p
+                  className="text-center"
+                  style={{
+                    color: "rgba(255,255,255,.42)",
+                    fontSize: 14,
+                  }}
+                >
+                  {bottomText}{" "}
+                  <Link
+                    href={bottomLinkHref}
+                    className="transition-colors duration-200"
+                    style={{
+                      background: "linear-gradient(90deg,#06B6D4,#7C3AED)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      fontWeight: 600,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.filter = "brightness(1.15)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.filter = "brightness(1)";
+                    }}
+                  >
+                    {bottomLink}
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

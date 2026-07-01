@@ -2,42 +2,89 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { MOBILE_NAV_LINKS } from "@/lib/constants";
 
 export default function MobileNavbar() {
   const pathname = usePathname();
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 w-full z-50">
-      {/* Gradient shadow to blend with the page */}
-      <div className="absolute bottom-full left-0 w-full h-8 bg-linear-to-t from-[#09090b] to-transparent pointer-events-none" />
+    <nav
+      className="fixed inset-x-0 bottom-0 z-50 md:hidden"
+      style={{
+        background: "rgba(7,7,15,.92)",
+        backdropFilter: "blur(24px)",
+        borderTop: "1px solid rgba(255,255,255,.07)",
+        paddingBottom: "env(safe-area-inset-bottom,12px)",
+      }}
+    >
+      {/* Brand Accent */}
+      <div
+        className="h-1 w-full"
+        style={{
+          background: "linear-gradient(90deg,#06B6D4,#7C3AED)",
+        }}
+      />
 
-      <nav className="bg-[#0f0f13]/90 backdrop-blur-xl border-t border-white/8 pb-safe">
-        <ul className="flex items-center justify-around px-2 py-3">
-          {MOBILE_NAV_LINKS.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <li key={link.name} className="flex-1">
-                <Link
-                  href={link.href}
-                  className={`flex flex-col items-center justify-center gap-1 transition-colors ${
-                    isActive
-                      ? "text-cyan-400"
-                      : "text-slate-400 hover:text-white"
-                  }`}
-                >
-                  <link.icon
-                    className={`w-5 h-5 ${isActive ? "fill-cyan-400/20" : ""}`}
+      <div className="flex items-center justify-around px-2 py-2">
+        {MOBILE_NAV_LINKS.map((item) => {
+          const Icon = item.icon;
+
+          const active =
+            item.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(item.href);
+
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="flex flex-1 flex-col items-center justify-center py-1"
+            >
+              {/* Active Dot */}
+              <div className="mb-1 h-1 w-1">
+                {active && (
+                  <span
+                    className="block h-1 w-1 rounded-full"
+                    style={{
+                      background: "linear-gradient(90deg,#06B6D4,#7C3AED)",
+                      boxShadow: "0 0 10px rgba(6,182,212,.5)",
+                    }}
                   />
-                  <span className="text-[10px] font-medium tracking-wide">
-                    {link.name}
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </div>
+                )}
+              </div>
+              <Icon
+                size={20}
+                className="transition-all duration-200"
+                style={{
+                  color: active ? "#06B6D4" : "rgba(255,255,255,.3)",
+
+                  filter: active
+                    ? "drop-shadow(0 0 6px rgba(6,182,212,.6))"
+                    : "none",
+                }}
+              />
+              <span
+                className="mt-1 text-[10px] font-medium tracking-wide"
+                style={
+                  active
+                    ? {
+                        background: "linear-gradient(90deg,#06B6D4,#7C3AED)",
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }
+                    : {
+                        color: "rgba(255,255,255,.3)",
+                      }
+                }
+              >
+                {item.name}
+              </span>{" "}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
   );
 }

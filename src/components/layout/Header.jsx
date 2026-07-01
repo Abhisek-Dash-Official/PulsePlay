@@ -1,9 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+
 import { SITE_NAME, SITE_LOGO_URL } from "@/lib/constants";
+
 import SearchBar from "@/components/ui/SearchBar";
 import UserDropdown from "@/components/layout/UserDropdown";
 import DesktopNavbar from "@/components/layout/DesktopNavbar";
@@ -11,62 +13,75 @@ import DesktopNavbar from "@/components/layout/DesktopNavbar";
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
-  // Detect scroll for adding dark background
   useEffect(() => {
-    const handleScroll = () => {
+    const onScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    onScroll();
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+      style={
         scrolled
-          ? "bg-[#050505]/90 backdrop-blur-xl shadow-lg border-b border-white/5"
-          : "bg-transparent"
-      }`}
+          ? {
+              background: "rgba(7,7,15,.88)",
+              backdropFilter: "blur(20px)",
+              borderBottom: "1px solid rgba(255,255,255,.06)",
+              boxShadow: "0 4px 30px rgba(0,0,0,.5)",
+            }
+          : {}
+      }
     >
       {/* Top Bar */}
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 sm:h-20 gap-4">
-          {/* Logo & Brand */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 sm:gap-3 shrink-0 group"
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-18 lg:px-8">
+        {/* Logo */}
+        <Link href="/" className="group flex shrink-0 items-center gap-3">
+          <div
+            className="relative h-9 w-9 transition-transform duration-300 group-hover:scale-110"
+            style={{
+              filter: "drop-shadow(0 0 12px rgba(6,182,212,.4))",
+            }}
           >
-            <div className="relative w-8 h-8 sm:w-10 sm:h-10 transition-transform group-hover:scale-105">
-              <Image
-                src={SITE_LOGO_URL}
-                alt={SITE_NAME}
-                fill
-                className="object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.3)]"
-              />
-            </div>
-            <span className="text-xl sm:text-2xl font-bold text-white tracking-tight hidden sm:block">
-              {SITE_NAME}
-            </span>
-          </Link>
-
-          {/* Search Bar (Hidden on very small screens, takes remaining space on tablet/desktop) */}
-          <div className="flex-1 max-w-xl hidden sm:flex justify-center px-4">
-            <SearchBar />
+            <Image
+              src={SITE_LOGO_URL}
+              alt={SITE_NAME}
+              fill
+              priority
+              className="object-contain"
+            />
           </div>
 
-          {/* User Profile / Auth */}
-          <div className="flex items-center shrink-0">
-            <UserDropdown />
+          <span className="hidden text-xl font-bold tracking-tight text-white sm:block">
+            {SITE_NAME}
+          </span>
+        </Link>
+
+        {/* Desktop Search */}
+        <div className="mx-8 hidden flex-1 justify-center md:flex">
+          <div className="w-full max-w-md">
+            <SearchBar />
           </div>
         </div>
 
-        {/* Mobile Search Bar (Shows below the top bar on mobile only) */}
-        <div className="sm:hidden pb-3">
-          <SearchBar />
+        {/* User */}
+        <div className="flex shrink-0 items-center">
+          <UserDropdown />
         </div>
       </div>
 
-      {/* Bottom Bar: Desktop Navigation */}
+      {/* Mobile Search */}
+      <div className="border-t border-white/4 px-4 pb-4 md:hidden">
+        <SearchBar />
+      </div>
+
+      {/* Desktop Navigation */}
       <DesktopNavbar />
     </header>
   );

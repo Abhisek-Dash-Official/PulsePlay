@@ -63,19 +63,38 @@ export const NAV_LINKS = [
 
 export const MOBILE_NAV_LINKS = [
     { name: "Home", href: "/", icon: Home },
-    { name: "Bollywood", href: "/bollywood", icon: Clapperboard },
-    { name: "Hollywood", href: "/hollywood", icon: Globe },
+    { name: "Movie", href: "/movies", icon: Clapperboard },
     { name: "Series", href: "/series", icon: Tv },
+    { name: "WatchList", href: "/watchlist", icon: ListVideo },
     { name: "Genres", href: "/genres", icon: LayoutGrid },
 ]
 
-export const FOOTER_LINKS = [
-    { name: "About Us", href: "/about" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Contact", href: "/contact" },
+// Footer Links
+export const exploreLinks = [
+    { name: "Home", href: "/" },
+    { name: "Movies", href: "/movies" },
+    { name: "Series", href: "/series" },
+    { name: "Bollywood", href: "/bollywood" },
+    { name: "Hollywood", href: "/hollywood" },
+    { name: "Genres", href: "/genres" },
 ];
 
+export const accountLinks = [
+    { name: "Sign In", href: "/login" },
+    { name: "Sign Up", href: "/signup" },
+    { name: "My Profile", href: "/myprofile" },
+    { name: "Watchlist", href: "/watchlist" },
+    { name: "Favourites", href: "/favourites" },
+];
+
+export const companyLinks = [
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
+];
+
+// Admin Panel Links
 export const ADMIN_NAV_LINKS = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Movies Management", href: "/admin/movies", icon: Video },
